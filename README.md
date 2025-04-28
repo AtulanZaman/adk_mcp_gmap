@@ -5,16 +5,36 @@ A streaming chat agent using Google ADK and the Model Context Protocol (MCP) Goo
 ## Local Development
 
 1. Install dependencies:
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 2. Set up `.env` in `app/` with your API keys.
 
 3. Run locally:
-   ```
+   ```bash
    export SSL_CERT_FILE=$(python -m certifi)
    uvicorn app.main:app --reload
    ```
+
+## Project Structure
+
+```
+adk-mcp-agent/
+├── app/
+│   ├── main.py
+│   ├── static/
+│   │   └── index.html
+│   └── .env
+├── agent/
+│   └── agents.py
+├── requirements.txt
+├── Dockerfile
+├── README.md
+└── .gitignore
+```
+
+- The agent logic is in the `agent/` directory (`agent/agents.py`).
+- The FastAPI app and UI are in the `app/` directory.
 
 ## Deployment
 

@@ -8,7 +8,7 @@ from pathlib import Path
 
 # Import your async agent creation function
 import sys
-sys.path.append("..")
+sys.path.append(str(Path(__file__).resolve().parent.parent / "agent"))
 from agents import get_agent_async
 
 app = FastAPI()
