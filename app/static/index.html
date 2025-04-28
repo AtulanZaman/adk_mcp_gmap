@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>ADK MCP Chat</title>
+  </head>
+  <body>
+    <h1>ADK MCP Chat</h1>
+    <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid black"></div>
+    <form id="messageForm">
+      <input type="text" id="message" autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+    <script>
+      const sessionId = Math.floor(Math.random() * 100000);
+      const ws = new WebSocket("ws://" + window.location.host + "/ws/" + sessionId);
+      const messagesDiv = document.getElementById("messages");
+      document.getElementById("messageForm").onsubmit = function(e) {
+        e.preventDefault();
+        const input = document.getElementById("message");
+        ws.send(input.value);
+        const p = document.createElement("p");
+        p.textContent = "> " + input.value;
+        messagesDiv.appendChild(p);
+        input.value = "";
+      };
+      ws.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const p = document.createElement("p");
+        p.textContent = data.message;
+        messagesDiv.appendChild(p);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      };
+    </script>
+  </body>
+</html>
